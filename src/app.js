@@ -5,3 +5,5 @@ function getMyGoodResulst(name) {
   console.log("I gona make a mitsake hre!");
   console.log(name);
 }
+
+console.log("Her are myy mitstakes.");
