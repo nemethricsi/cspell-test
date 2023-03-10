@@ -15,20 +15,19 @@ jobs:
       - name: CSpell
         uses: streetsidesoftware/cspell-action@v2
         with:
-          files: ""
+          files: "**"
           check_dot_files: false
           inline: warning
-          fail_on_error: false
-          show_files: true
           incremental_files_only: true
-          comment: true
-          comment_on_same_line: true
-          comment_fail_on_error: false
-          exclude: "**/node_modules/**"
-          language: en
+          root: "."
       - name: Comment on Pull Request
         uses: thollander/actions-comment-pull-request@v2
-        if: steps.spellcheck.outputs.comment_added == 'true'
+        if: ${{ failure() }}
         with:
-          message: "CSpell check found issues in the following files:\n\n${{ steps.spellcheck.outputs.comment }}"
+          message: |
+            There were spelling errors found in the code changes. Please fix the errors before merging.
+            ```
+            ${{ env.CSPELLOUTPUT }}
+            ```
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          CSPELLOUTPUT: ${{ steps.cspell.outputs.files_with_errors }}
