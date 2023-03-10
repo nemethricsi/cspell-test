@@ -1,16 +1,32 @@
-name: CSpell Check
+name: Spellcheck
 
-on: [pull_request]
+on:
+  pull_request:
+    types: [opened, edited, synchronize]
 
 jobs:
   spellcheck:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
-      - uses: zthxxx/cspell-action@v0.3.0
+      - name: Checkout Code
+        uses: actions/checkout@v2
         with:
-          files: ""
-          check_dot_files: explicit
+          ref: ${{ github.event.pull_request.head.sha }}
+      - name: CSpell
+        uses: streetsidesoftware/cspell-action@v2
+        with:
+          files: "**"
+          check_dot_files: false
           inline: warning
-          strict: true
           incremental_files_only: true
+          root: "."
+      - name: Comment on Pull Request
+        uses: thollander/actions-comment-pull-request@v2
+        if: ${{ failure() }}
+        with:
+          message: |
+            There were spelling errors found in the code changes. Please fix the errors before merging.
+            ```
+            ${{ steps.CSpell.outputs.errors }}
+            ```
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
