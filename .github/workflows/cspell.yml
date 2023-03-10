@@ -27,7 +27,6 @@ jobs:
           message: |
             There were spelling errors found in the code changes. Please fix the errors before merging.
             ```
-            ${{ env.CSPELLOUTPUT }}
+            ${{ steps.CSpell.outputs.errors }}
             ```
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          CSPELLOUTPUT: ${{ steps.cspell.outputs.files_with_errors }}
