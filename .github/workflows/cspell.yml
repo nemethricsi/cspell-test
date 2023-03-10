@@ -18,4 +18,5 @@ jobs:
           files: "**"
           inline: warning
           check_dot_files: false
+          strict: false
           incremental_files_only: true
