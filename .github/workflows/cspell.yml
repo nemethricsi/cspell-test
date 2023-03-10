@@ -17,18 +17,12 @@ jobs:
         with:
           files: ""
           check_dot_files: false
+          inline: warning
           fail_on_error: false
           show_files: true
           incremental_files_only: true
-      - name: Comment on Pull Request
-        uses: pullreminders/comment-on-pull-request@v1
-        if: ${{ failure() }}
-        with:
-          message: |
-            There were spelling errors found in the code changes. Please fix the errors before merging.
-            ```
-            ${{ env.CSPELLOUTPUT }}
-            ```
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          CSPELLOUTPUT: ${{ steps.cspell.outputs.files_with_errors }}
+          comment: true
+          comment_on_same_line: true
+          comment_fail_on_error: false
+          exclude: "**/node_modules/**"
+          language: en
