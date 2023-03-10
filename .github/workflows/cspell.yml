@@ -3,14 +3,14 @@ name: CSpell Check
 on: [pull_request]
 
 jobs:
-  cspell:
-  runs-on: ubuntu-latest
-  steps:
-    - uses: actions/checkout@v2
-    - uses: zthxxx/cspell-action@v0.3.0
-      with:
-        files: ""
-        check_dot_files: explicit
-        inline: warning
-        strict: true
-        incremental_files_only: true
+  spellcheck:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: zthxxx/cspell-action@v0.3.0
+        with:
+          files: ""
+          check_dot_files: explicit
+          inline: warning
+          strict: true
+          incremental_files_only: true
