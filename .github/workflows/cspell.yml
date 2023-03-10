@@ -26,3 +26,9 @@ jobs:
           comment_fail_on_error: false
           exclude: "**/node_modules/**"
           language: en
+      - name: Comment on Pull Request
+        uses: thollander/actions-comment-pull-request@v2
+        if: steps.spellcheck.outputs.comment_added == 'true'
+        with:
+          message: "CSpell check found issues in the following files:\n\n${{ steps.spellcheck.outputs.comment }}"
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
