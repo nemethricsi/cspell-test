@@ -1,0 +1,2 @@
+# cspell-test
+cspell test
