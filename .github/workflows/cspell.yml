@@ -7,7 +7,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
-      - uses: zthxxx/cspell-action@v0.3.0
+      - uses: streetsidesoftware/cspell-action@v2
         with:
           files: ""
           check_dot_files: explicit
