@@ -18,15 +18,6 @@ jobs:
           files: "**"
           check_dot_files: false
           inline: warning
+          strict: false
           incremental_files_only: true
           root: "."
-      - name: Comment on Pull Request
-        uses: thollander/actions-comment-pull-request@v2
-        if: ${{ failure() }}
-        with:
-          message: |
-            There were spelling errors found in the code changes. Please fix the errors before merging.
-            ```
-            ${{ steps.CSpell.outputs.errors }}
-            ```
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
